@@ -43,15 +43,14 @@ storage:
   backend: local
   path: /path/to/your/statamic/content
 
-rocksdb_path: /var/lib/kazedb/rocksdb
+data_path: /var/lib/kazedb
 
 auth:
   token: "your-secret-token"
   admin_token: "your-admin-secret"
 
 cache:
-  moka_max_mb: 128
-  rocksdb_block_cache_mb: 256
+  max_mb: 128
 
 metrics:
   listen: "0.0.0.0:9090"
@@ -102,7 +101,7 @@ The installer:
 3. Replaces the binary
 4. Restarts the service
 
-**Your data is safe** — SQLite databases, RocksDB cache, and config files are in `/var/lib/kazedb` and `/etc/kazedb`, not in the binary. Updates only replace the binary itself.
+**Your data is safe** — all data and config files live in `/var/lib/kazedb` and `/etc/kazedb`, separate from the binary. Updates only replace the binary itself.
 
 ### Install a specific version
 
@@ -159,7 +158,7 @@ kazedb reindex --config /etc/kazedb/kazedb.yaml  # Rebuild indexes from files
 |------|----------|-----------------|
 | `/usr/local/bin/kazedb` | Binary | Replaced on update |
 | `/etc/kazedb/kazedb.yaml` | Configuration | Preserved |
-| `/var/lib/kazedb/` | SQLite + RocksDB data | Preserved |
+| `/var/lib/kazedb/` | Database + cache | Preserved |
 | `/path/to/content/` | Statamic flat files | Preserved (read-only) |
 
 ## License
